@@ -14,21 +14,21 @@
  *     limitations under the License.
  */
 
-package net.awired.clients.sonar;
+package net.awired.clients.bamboo.rest;
 
-import static org.junit.Assert.assertTrue;
-import net.awired.clients.sonar.Sonar;
-import net.awired.clients.sonar.exception.SonarMeasureNotFoundException;
-import org.junit.Test;
-import org.sonar.wsclient.services.Measure;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class SonarIT {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "build")
+public class Build {
 
-    @Test
-    public void should_find_measure() throws SonarMeasureNotFoundException {
-        Sonar sonarClient = new Sonar("http://sonar.awired.net");
-        Measure measure = sonarClient.findMeasure("org.apache.struts:struts-parent", "violations_density");
-        assertTrue(measure.getFormattedValue().length() > 0);
-        assertTrue(measure.getValue() > 0);
-    }
+    @XmlAttribute
+    public String state;
+
+    @XmlAttribute
+    public String key;
+
 }

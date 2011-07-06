@@ -14,30 +14,28 @@
  *     limitations under the License.
  */
 
-package net.awired.clients.bamboo;
+package net.awired.clients.teamcity.resource;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import java.util.ArrayList;
 import java.util.List;
-import net.awired.clients.bamboo.Bamboo;
-import net.awired.clients.bamboo.exception.BambooPlanNotFoundException;
-import net.awired.clients.bamboo.rest.Plan;
-import org.junit.Test;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class BambooIT {
+@XmlRootElement(name = "buildTypes")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class TeamCityBuildTypes {
 
-    private Bamboo bamboo = new Bamboo("http://bamboo.visuwall.awired.net");
+    @XmlElements(value = { @XmlElement(name = "buildType") })
+    private List<TeamCityBuildType> buildTypes = new ArrayList<TeamCityBuildType>();
 
-    @Test
-    public void should_find_all_plans() {
-        List<Plan> plans = bamboo.findAllPlans();
-        assertFalse(plans.isEmpty());
+    public List<TeamCityBuildType> getBuildTypes() {
+        return buildTypes;
     }
 
-    @Test
-    public void should_find_an_existing_plan() throws BambooPlanNotFoundException {
-        Plan project = bamboo.findPlan("STRUTS-STRUTS");
-        assertNotNull(project);
+    public void setBuildTypes(List<TeamCityBuildType> buildTypes) {
+        this.buildTypes = buildTypes;
     }
-
 }

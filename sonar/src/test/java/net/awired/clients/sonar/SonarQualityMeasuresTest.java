@@ -16,19 +16,26 @@
 
 package net.awired.clients.sonar;
 
-import static org.junit.Assert.assertTrue;
-import net.awired.clients.sonar.Sonar;
-import net.awired.clients.sonar.exception.SonarMeasureNotFoundException;
+import static org.junit.Assert.assertEquals;
+import net.awired.clients.sonar.QualityMeasures;
+import net.awired.clients.sonar.domain.SonarQualityMeasure;
 import org.junit.Test;
 import org.sonar.wsclient.services.Measure;
 
-public class SonarIT {
+public class SonarQualityMeasuresTest {
 
     @Test
-    public void should_find_measure() throws SonarMeasureNotFoundException {
-        Sonar sonarClient = new Sonar("http://sonar.awired.net");
-        Measure measure = sonarClient.findMeasure("org.apache.struts:struts-parent", "violations_density");
-        assertTrue(measure.getFormattedValue().length() > 0);
-        assertTrue(measure.getValue() > 0);
+    public void should_find_quality_measure() {
+        Measure coverageMeasure = new Measure();
+        coverageMeasure.setFormattedValue("5%");
+        coverageMeasure.setValue(5D);
+        coverageMeasure.setMetricName("Coverage");
+
+        SonarQualityMeasure qualityMeasure = QualityMeasures.asQualityMeasure(coverageMeasure, "measureKey");
+
+        assertEquals("5%", qualityMeasure.getFormattedValue());
+        assertEquals(5D, qualityMeasure.getValue(), 0);
+        assertEquals("measureKey", qualityMeasure.getKey());
     }
+
 }

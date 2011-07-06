@@ -19,6 +19,7 @@ package net.awired.visuwall.common.client;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import javax.ws.rs.core.MediaType;
+import net.awired.clients.common.ResourceCache;
 import org.junit.Test;
 
 public class ResourceCacheTest {

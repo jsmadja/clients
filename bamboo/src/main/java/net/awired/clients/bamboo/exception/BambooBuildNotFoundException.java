@@ -14,21 +14,14 @@
  *     limitations under the License.
  */
 
-package net.awired.clients.sonar;
+package net.awired.clients.bamboo.exception;
 
-import static org.junit.Assert.assertTrue;
-import net.awired.clients.sonar.Sonar;
-import net.awired.clients.sonar.exception.SonarMeasureNotFoundException;
-import org.junit.Test;
-import org.sonar.wsclient.services.Measure;
+public class BambooBuildNotFoundException extends Exception {
 
-public class SonarIT {
+    private static final long serialVersionUID = -2694816327799844474L;
 
-    @Test
-    public void should_find_measure() throws SonarMeasureNotFoundException {
-        Sonar sonarClient = new Sonar("http://sonar.awired.net");
-        Measure measure = sonarClient.findMeasure("org.apache.struts:struts-parent", "violations_density");
-        assertTrue(measure.getFormattedValue().length() > 0);
-        assertTrue(measure.getValue() > 0);
+    public BambooBuildNotFoundException(String msg, Throwable t) {
+        super(msg, t);
     }
+
 }
